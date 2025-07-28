@@ -1,0 +1,153 @@
+# Dhivehi to Latin Transliteration
+
+> **⚠️ Work in Progress**: This project is currently under active development.
+
+## TODO
+
+- [ ] Add dataset to Hugging Face Hub
+- [ ] Separate training and inference scripts
+- [ ] Fine-tune FLAN-T5 small model using distillation
+- [ ] Retrain using larger dataset (100k samples)
+
+## Overview
+
+This project provides a fine-tuned FLAN-T5 model for transliterating Dhivehi text from Thaana script to Latin script. The model was trained on 20,000 Thaana-Latin transliteration pairs scraped from [Mihaaru News](https://mihaaru.com).
+
+## Model Performance
+
+- **Training Loss**: 0.146100
+- **Validation Loss**: 0.155982
+- **Training Epochs**: 5
+- **Base Model**: [alakxender/flan-t5-base-dhivehi-en-latin](https://huggingface.co/alakxender/flan-t5-base-dhivehi-en-latin)
+
+## Quick Start
+
+### Installation
+
+```bash
+pip install transformers torch
+```
+
+### Usage
+
+```python
+from transformers import (
+    AutoTokenizer,
+    T5ForConditionalGeneration
+)
+
+MODEL_CHECKPOINT = "politecat314/flan-t5-base-dv2latin-mihaaru"
+
+# Load the fine-tuned model and tokenizer
+fine_tuned_tokenizer = AutoTokenizer.from_pretrained(MODEL_CHECKPOINT)
+fine_tuned_model = T5ForConditionalGeneration.from_pretrained(MODEL_CHECKPOINT)
+
+# Example text
+source_text = "އިންޑިއާގައި ފޭކް އެމްބަސީއެއް ހަދައިގެން އުޅުނު މީހަކު ހައްޔަރުކޮށްފި"
+prompt = f"dv2latin: {source_text.strip()}"
+
+# Generate translation
+inputs = fine_tuned_tokenizer(prompt, return_tensors="pt")
+output_ids = fine_tuned_model.generate(**inputs, max_length=128)
+result = fine_tuned_tokenizer.decode(output_ids[0], skip_special_tokens=True)
+
+print(f"\nSource (Dhivehi): {source_text}")
+print(f"Result (Latin): {result}")
+```
+
+**Output:**
+```
+Source (Dhivehi): އިންޑިއާގައި ފޭކް އެމްބަސީއެއް ހަދައިގެން އުޅުނު މީހަކު ހައްޔަރުކޮށްފި
+Result (Latin): India gai fake embassy eh hadhaigen ulhunu meehaku hayyaru koffi
+```
+
+## Examples
+
+### Successful Transliterations
+
+**Example 1:**
+```
+Input:  މޯލްޑިވިއަންގެ ބޯޓުތަކުގައި ތާނައިން ރާއްޖޭގެ ނަން ލިޔެފި
+Output: Maldivian ge boat thakugai Thaanain Raajjeyge nan liyefi
+```
+
+**Example 2:**
+```
+Input:  ޗައިނާގެ ގްރޫޕަކުން ސިންގަޕޫރަށް ވަރުގަދަ ސައިބާ ހަމަލާތަކެއް ދީފި
+Output: China ge group eh Singapore ah varugadha saba hamalaathakeh dheefi
+```
+
+### Known Limitations
+
+The model may occasionally miss or skip certain words during transliteration:
+
+```
+Input:  މެލޭޝިޔާގައި ބޮޑުވަޒީރުގެ އިސްތިއުފާއަށް ގޮވާ، ސަރުކާރާ ދެކޮޅަށް މުޒާހަރާ ކުރަނީ
+Output: sarukaaraa dhekolhah muzaaharaa kuranee
+```
+*Note: Some words are missing from this transliteration.*
+
+## Dataset
+
+The training dataset consists of 20,000 Thaana-Latin transliteration pairs scraped from [Mihaaru News](https://mihaaru.com). The dataset captures contemporary Dhivehi usage in news media.
+
+## Model Architecture
+
+- **Base Model**: FLAN-T5 Base
+- **Task**: Text-to-text generation (transliteration)
+- **Input**: Dhivehi text in Thaana script
+- **Output**: Dhivehi text in Latin script
+- **Architecture**: T5 (Text-to-Text Transfer Transformer)
+
+## Files Structure
+
+```
+dhivehi-transliteration/
+├── README.md
+├── requirements.txt
+├── data/
+│   └── mihaaru_transliteration_pairs.csv
+├── scripts/
+│   ├── train.py
+│   ├── inference.py
+│   └── evaluate.py
+└── models/
+    └── flan-t5-base-dv2latin-mihaaru/
+```
+
+## Training
+
+The model was fine-tuned using the following configuration:
+- **Epochs**: 5
+- **Dataset Size**: 20,000 pairs
+- **Source**: Mihaaru News articles
+- **Preprocessing**: Text cleaning and normalization
+
+## Evaluation
+
+The model achieves reasonable performance on news domain text but may struggle with:
+- Technical or specialized vocabulary
+- Proper nouns from other languages
+- Complex compound words
+- Text from domains significantly different from news
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+## License
+
+This project is released under the MIT License. See [LICENSE](LICENSE) for details.
+
+## Resources
+
+- **🤗 Hugging Face Model**: [politecat314/flan-t5-base-dv2latin-mihaaru](https://huggingface.co/politecat314/flan-t5-base-dv2latin-mihaaru)
+- **Base Model**: [alakxender/flan-t5-base-dhivehi-en-latin](https://huggingface.co/alakxender/flan-t5-base-dhivehi-en-latin)
+- **Data Source**: [Mihaaru News](https://mihaaru.com)
+
+
+## Special Thanks
+
+- [Name](URL) - Description of contribution
+- [Name](URL) - Description of contribution
+- [Name]() - Description of contribution (no URL)

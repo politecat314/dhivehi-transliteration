@@ -102,10 +102,17 @@ dhivehi-transliteration/
 
 ## Training
 
-The model can be fine tuned on your own dataset by using the notebook at `scripts/train.ipynb`. Make sure the data is in the same format as in `data/train.csv` containing columns called latin and Dhivehi.<br>
+To fine-tune the model on your own dataset:
 
-The args for the current model can be found in `scripts/train.ipynb`. The model was trained for 5 epochs and resulted in a validation loss of 0.155982.
+1. Format your data like `data/train.csv` with columns: `latin` and `Dhivehi`.
+2. Use GPU for faster training. Install PyTorch: [pytorch.org/get-started/locally](https://pytorch.org/get-started/locally/)
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the training notebook `scripts/train.ipynb`
 
+The current model was trained for 5 epochs with a final validation loss of 0.155982.
 ![Loss Plot](static/loss.png)
 
 ## Contributing

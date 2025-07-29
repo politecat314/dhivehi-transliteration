@@ -1,17 +1,5 @@
 # Dhivehi to Latin Transliteration
 
-> **⚠️ Work in Progress**: This project is currently under active development.
-
-## TODO
-
-- [ ] Add dataset to Hugging Face Hub
-- [ ] Separate training and inference scripts
-- [ ] Fine-tune FLAN-T5 small model using distillation
-- [ ] Retrain using larger dataset (100k samples)
-- [ ] Train model in reverse (latin to dhivehi)
-
-## Overview
-
 This project provides a fine-tuned FLAN-T5 model for transliterating Dhivehi text from Thaana script to Latin script. The model was trained on 20,000 Thaana-Latin transliteration pairs scraped from [Mihaaru News](https://mihaaru.com). The base model we used can be found here: [alakxender/flan-t5-base-dhivehi-en-latin](https://huggingface.co/alakxender/flan-t5-base-dhivehi-en-latin).
 
 ## Quick Start
@@ -112,12 +100,21 @@ To fine-tune the model on your own dataset:
    ```
 4. Run the training notebook `scripts/train.ipynb`
 
-The current model was trained for 5 epochs with a final validation loss of 0.155982.
+The current model was trained for 5 epochs with a final validation loss of 0.155982.<br>
+
 ![Loss Plot](static/loss.png)
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+### TODO
+
+- [ ] Add dataset to Hugging Face Hub
+- [ ] Separate training and inference scripts
+- [ ] Fine-tune FLAN-T5 small model using distillation
+- [ ] Retrain using larger dataset (100k samples)
+- [ ] Train model in reverse (latin to dhivehi)
 
 ## License
 
@@ -128,7 +125,6 @@ This project is released under the MIT License. See [LICENSE](LICENSE) for detai
 - **🤗 Hugging Face Model**: [politecat314/flan-t5-base-dv2latin-mihaaru](https://huggingface.co/politecat314/flan-t5-base-dv2latin-mihaaru)
 - **Base Model**: [alakxender/flan-t5-base-dhivehi-en-latin](https://huggingface.co/alakxender/flan-t5-base-dhivehi-en-latin)
 - **Data Source**: [Mihaaru News](https://mihaaru.com)
-
 
 ## Special Thanks
 

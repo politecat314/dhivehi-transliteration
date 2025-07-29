@@ -8,17 +8,11 @@
 - [ ] Separate training and inference scripts
 - [ ] Fine-tune FLAN-T5 small model using distillation
 - [ ] Retrain using larger dataset (100k samples)
+- [ ] Train model in reverse (latin to dhivehi)
 
 ## Overview
 
-This project provides a fine-tuned FLAN-T5 model for transliterating Dhivehi text from Thaana script to Latin script. The model was trained on 20,000 Thaana-Latin transliteration pairs scraped from [Mihaaru News](https://mihaaru.com).
-
-## Model Performance
-
-- **Training Loss**: 0.146100
-- **Validation Loss**: 0.155982
-- **Training Epochs**: 5
-- **Base Model**: [alakxender/flan-t5-base-dhivehi-en-latin](https://huggingface.co/alakxender/flan-t5-base-dhivehi-en-latin)
+This project provides a fine-tuned FLAN-T5 model for transliterating Dhivehi text from Thaana script to Latin script. The model was trained on 20,000 Thaana-Latin transliteration pairs scraped from [Mihaaru News](https://mihaaru.com). The base model we used can be found here: [alakxender/flan-t5-base-dhivehi-en-latin](https://huggingface.co/alakxender/flan-t5-base-dhivehi-en-latin).
 
 ## Quick Start
 
@@ -89,15 +83,7 @@ Output: sarukaaraa dhekolhah muzaaharaa kuranee
 
 ## Dataset
 
-The training dataset consists of 20,000 Thaana-Latin transliteration pairs scraped from [Mihaaru News](https://mihaaru.com). The dataset captures contemporary Dhivehi usage in news media.
-
-## Model Architecture
-
-- **Base Model**: FLAN-T5 Base
-- **Task**: Text-to-text generation (transliteration)
-- **Input**: Dhivehi text in Thaana script
-- **Output**: Dhivehi text in Latin script
-- **Architecture**: T5 (Text-to-Text Transfer Transformer)
+The training dataset consists of 20K Thaana-Latin transliteration pairs scraped from [Mihaaru News](https://mihaaru.com). The dataset captures contemporary Dhivehi usage in news media.
 
 ## Files Structure
 
@@ -105,31 +91,22 @@ The training dataset consists of 20,000 Thaana-Latin transliteration pairs scrap
 dhivehi-transliteration/
 ├── README.md
 ├── requirements.txt
+├── inference.py
 ├── data/
-│   └── mihaaru_transliteration_pairs.csv
+│   └── train.csv
+|───└── test.csv
 ├── scripts/
-│   ├── train.py
-│   ├── inference.py
-│   └── evaluate.py
-└── models/
-    └── flan-t5-base-dv2latin-mihaaru/
+│   ├── train.ipynb
+│   ├── data_cleaning.ipynb
 ```
 
 ## Training
 
-The model was fine-tuned using the following configuration:
-- **Epochs**: 5
-- **Dataset Size**: 20,000 pairs
-- **Source**: Mihaaru News articles
-- **Preprocessing**: Text cleaning and normalization
+The model can be fine tuned on your own dataset by using the notebook at `scripts/train.ipynb`. Make sure the data is in the same format as in `data/train.csv` containing columns called latin and Dhivehi.<br>
 
-## Evaluation
+The args for the current model can be found in `scripts/train.ipynb`. The model was trained for 5 epochs and resulted in a validation loss of 0.155982.
 
-The model achieves reasonable performance on news domain text but may struggle with:
-- Technical or specialized vocabulary
-- Proper nouns from other languages
-- Complex compound words
-- Text from domains significantly different from news
+![Loss Plot](static/loss.png)
 
 ## Contributing
 
@@ -148,6 +125,10 @@ This project is released under the MIT License. See [LICENSE](LICENSE) for detai
 
 ## Special Thanks
 
-- [Name](URL) - Description of contribution
-- [Name](URL) - Description of contribution
-- [Name]() - Description of contribution (no URL)
+Special thanks to everyone who scraped, cleaned, and labeled the data. Your efforts laid the essential foundation for this project and made it possible.
+
+- [Maadh](https://github.com/itsMaadh)
+- [Nazanbe]()
+- [Shubbe]()
+- [Yaaniu]()
+- [Naif]()

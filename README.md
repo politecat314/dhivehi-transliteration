@@ -131,7 +131,8 @@ This project is released under the MIT License. See [LICENSE](LICENSE) for detai
 Special thanks to everyone who scraped, cleaned, and labeled the data. Your efforts laid the essential foundation for this project and made it possible.
 
 - [Maadh](https://github.com/itsMaadh)
-- [Nazanbe]()
-- [Shubbe]()
-- [Yaaniu]()
-- [Naif]()
+- [Mushfau](https://github.com/mushfau)
+- Nazanbe
+- Shubbe
+- Yaaniu
+- Naif
